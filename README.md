@@ -1,7 +1,7 @@
-# synopsis
-Build synopsis operator using Operator SDK toolkit version "v0.19.0"
+# Build synopsis operator using Operator SDK
 
 ## Setup
+Use Operator SDK toolkit version "v0.19.0"
 copy the blackduck, and the blackduck-connector helm charts to your folder
 
 From the root of the folder where you have put the helm charts, 
