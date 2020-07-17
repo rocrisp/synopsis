@@ -181,7 +181,7 @@ example-blackduck   10m
 
 ## Generate the operator metadata bundle for the Operator Lifecycle Manager
 
-`operator-sdk generate bundle  -version 0.1.0`
+`operator-sdk generate bundle  --version 0.1.0`
 
 You should get an interactive wizard like below:
 ```
