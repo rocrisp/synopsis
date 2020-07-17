@@ -4,8 +4,8 @@
 
 - operator-sdk
 
-Get the operator sdk version 0.19.0 [here]()
-And check the install instructions [here]()
+Get the operator sdk version 0.19.0 [here](https://github.com/operator-framework/operator-sdk/releases)
+And check the install instructions [here](https://sdk.operatorframework.io/docs/install-operator-sdk/)
 
 - Helm Charts
 
