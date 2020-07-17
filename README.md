@@ -152,7 +152,7 @@ $ cat watches.yaml
   chart: helm-charts/blackduck-connector
 ```
 
-This gives us a multiple helm chart operator project folder. Let's test it now:
+This gives us a multiple helm chart operator project folder. And testing may begin.
 
 First thing to use the local testing feature of operator sdk is to create the CRDs:
 
@@ -161,13 +161,74 @@ oc apply -f deploy/crds/blackduck.synopsys.com_blackducks_crd.yaml
 oc apply -f deploy/crds/blackduck-connector.synopsys.com_blackduckconnectors_crd.yaml
 ```
 
+And then you can grab a terminal window and run if you create a namespaces synopsys first:
 
+`operator-sdk run local --watch-namespace synopsys`
 
+Finally the example CR can be used as a test bed by running the command below in another terminal window:
 
-## Generate the bundle data for the operator
+`oc apply -f deploy/crds/blackduck.synopsys.com_v1alpha1_blackduck_cr.yaml`
 
-operator-sdk generate bundle  -version 0.1.0
+    Note: here the CR needs to reflect what is in your preferred or default configuration. It's just a copy of what the operator derived from the helm chart.
 
+After applying that you should be able to run:
 
+```
+$ oc get blackduck
+NAME                AGE
+example-blackduck   10m
+```
 
+## Generate the operator metadata bundle for the Operator Lifecycle Manager
 
+`operator-sdk generate bundle  -version 0.1.0`
+
+You should get an interactive wizard like below:
+```
+operator-sdk generate bundle  --version 0.1.0
+INFO[0000] Generating bundle manifests version 0.1.0
+
+Display name for the operator (required):
+> synopsys
+
+Description for the operator (required):
+> deploys synopsys applications
+
+Provider's name for the operator (required):
+> synopsys
+
+Any relevant URL for the provider name (optional):
+> synopsys.example.com
+
+Comma-separated list of keywords for your operator (required):
+> synopsys,blackduck
+
+Comma-separated list of maintainers and their emails (e.g. 'name1:email1, name2:email2') (required):
+> gautam:example@email.com
+INFO[0067] Bundle manifests generated successfully in deploy/olm-catalog/synopsys-operator
+INFO[0067] Building annotations.yaml
+INFO[0067] Writing annotations.yaml in /Users/alex/go/src/github.com/acmenezes/test/synopsys/synopsys-operator/deploy/olm-catalog/synopsys-operator/metadata
+INFO[0067] Building Dockerfile
+INFO[0067] Writing bundle.Dockerfile in /Users/alex/go/src/github.com/acmenezes/test/synopsys/synopsys-operator
+```
+And finally have a good kick start in the new olm-catalog folder with the generated bundle package. 
+
+```
+$ tree -L 4
+├── build
+│   └── Dockerfile
+├── bundle.Dockerfile
+├── deploy
+│   ├── crds
+│   │   ├── blackduck-connector.synopsys.com_blackduckconnectors_crd.yaml
+│   │   ├── blackduck-connector.synopsys.com_v1alpha1_blackduckconnector_cr.yaml
+│   │   ├── blackduck.synopsys.com_blackducks_crd.yaml
+│   │   └── blackduck.synopsys.com_v1alpha1_blackduck_cr.yaml
+│   ├── olm-catalog
+│   │   └── synopsys-operator
+│   │       ├── manifests
+│   │       └── metadata
+
+...
+```
+This command can be ran to upgrade the version and then it's just a matter to copy this folder into the community-operators repo and set a PR to publish it.
