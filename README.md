@@ -231,4 +231,4 @@ $ tree -L 4
 
 ...
 ```
-This command can be ran to upgrade the version and then it's just a matter to copy this folder into the community-operators repo and set a PR to publish it.
+This command can be ran to upgrade the version and then it's just a matter of copying this folder into the community-operators repo and set a PR to publish it.
